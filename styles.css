@@ -5,7 +5,7 @@
 }
 
 body {
-   background-color: #a0b489;
+   background-color: #fcebeb;
    display: grid;
    grid-template-columns: 1fr;
    grid-template-rows: 300px auto 300px;
@@ -14,7 +14,8 @@ body {
     "main"
     "footer";
   place-items: center;
-  height: 100vh;
+  font-size: 16px;
+  padding: 1rem;
 }
 
 header {
@@ -25,9 +26,30 @@ main {
   grid-area: main;
   display: grid;
   gap: 1rem;
-  height: 100%;
+  margin: 0 auto;
+  word-break: break-all;
 }
 
 footer {
   grid-area: footer;
+}
+
+#display_menu_items{
+  color: #13575a;
+  font-size: 1.2rem;
+}
+
+#display_menu_items li {
+  padding-bottom: 1rem;
+}
+
+#display_menu_items p {
+  padding-bottom: 1rem;
+}
+
+/* Media query for desktop */
+@media only screen and (min-width: 768px) {
+  body {
+    height: 100vh;
+  }
 }

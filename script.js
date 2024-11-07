@@ -1,60 +1,103 @@
-console.log("Week 4 - class assignment");
+console.log("Week 8 - JS - Loops (array) - Homework");
 
-const orderFoodFromDifferentRestaurants = (restaurantName, foodName, amountOfFood) => `You are ordering ${amountOfFood} ${foodName} from ${restaurantName}`;
+// Database
+// const menuDatabase = [
+// [ "Papadum", 20, "vegetarian",
+// "https://www.shutterstock.com/image-photo/deep-fried-khichiya-papad-traditional-260nw-1076490656.jpg",
+// ],
+// [
+// "Pakora", 50, "meat",
+// "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/02/vegetable-pakora-recipe.jpg",
+// ],
+// [
+// "Tandoori Chicken", 60, "meat",
+// "https://www.cubesnjuliennes.com/wp-content/uploads/2022/12/Tandoori-Chicken-Recipe.jpg",
+// ],
+// [
+// "Samosa", 50, "vegetarian",
+// "https://img.mummum.dk/wp-content/uploads/2022/03/IMG_9814-min.jpg",
+// ],
+// ];
 
-console.log(orderFoodFromDifferentRestaurants("Omo's Pizza", "Chicken Pizza", 5));
+// Now we need to go back and practice some DOM manipulation with JavaScript.
+// The idea is to use the powers of loops and arrays to build our website from a database.
+// The pseudocode for this task would look something like:
 
-// **************
+// a. Only write a <ul> element in your HTML document with an id
+// b. Get the <ul> element using getElementById
+// c. Use any type of the for loops you think might work to loop through the database (attached in next slide).
+// d. In each iteration create a <li> element
+// e. Create an <img> element for the product image, and 3 <p> elements for product name, price and category (using createElement).
+// f. Attach these 4 elements to the <li> created before
+// g. Attach the <li> to the <ul> element
+// h. Create a ‘vegetarian’ and ‘meat’ button that filters the products on the page.
 
-// A. Create 3 HTML element divs
-// a. Add some text to 
+// ---------------------------------
 
-const first_div_element = document.getElementById("first_div");
+const menuDatabase = [
+  ["Papadum", 20, "vegetarian",
+    "https://www.shutterstock.com/image-photo/deep-fried-khichiya-papad-traditional-260nw-1076490656.jpg",
+  ],
+  [
+    "Pakora", 50, "meat",
+    "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/02/vegetable-pakora-recipe.jpg",
+  ],
+  [
+    "Tandoori Chicken", 60, "meat",
+    "https://www.cubesnjuliennes.com/wp-content/uploads/2022/12/Tandoori-Chicken-Recipe.jpg",
+  ],
+  [
+    "Samosa", 50, "vegetarian",
+    // The following image link is broken
+    // "https://img.mummum.dk/wp-content/uploads/2022/03/IMG_9814-min.jpg",
+    "https://www.cookwithnabeela.com/wp-content/uploads/2024/02/AlooSamosa3.webp",
+  ]
+];
 
-// Not working
-// Can get only array of Elements - can not apply style on this fetched variable.
-// const second_div_element = document.getElementsByClassName("second_div");
+// a. Only write a <ul> element in your HTML document with an id
+// b. Get the <ul> element using getElementById
+const displayMenuItemsUlElement = document.getElementById('display_menu_items');
 
-// Working - to apply background color on the element
-const second_div_element = document.querySelector(".second_div");
+// c. Use any type of the for loops you think might work to loop through the database (attached in next slide).
 
-// Not working
-// Can get only array of Elements - can not apply style on this fetched variable.
-// const third_div_element = document.getElementsByTagName("div");
+for (const menuItem of menuDatabase) {
+  const [menuItemName, menuItemPrice, menuItemCategory, menuItemImage] = menuItem;
 
-// Working - grabbin the first div
-// const third_div_element = document.querySelector("div");
-const third_div_element = document.querySelectorAll("div")[2];
+  // d. In each iteration create a <li> element
 
-const read_more_button_element = document.getElementById("read_more_button");
+  const menuItemliElement = document.createElement('li');
 
-console.log(first_div_element);
-// first_div_element.innerHTML = "Test changing content";
+  // e. Create an <img> element for the product image, and 3 <p> elements for product name, price and category (using createElement).
 
-console.log(second_div_element);
-console.log(third_div_element);
-console.log(read_more_button_element);
+  const menuItemImageElement = document.createElement('img');
+  menuItemImageElement.setAttribute('height', '200px');
+  menuItemImageElement.setAttribute('width', '300px');
+  menuItemImageElement.setAttribute('alt', 'Dish image');
 
-read_more_button_element.setAttribute("disabled", true);
+  const menuItemNamePElement = document.createElement('p');
+  const menuItemPricePElement = document.createElement('p');
+  const menuItemCategoryPElement = document.createElement('p');
 
-first_div_element.style.height = "100px";
-first_div_element.style.width = "300px";
-first_div_element.style.border = "2px solid red";
-first_div_element.style.backgroundColor = "coral";
+  // f. Attach these 4 elements to the <li> created before
 
-second_div_element.style.height = "100px";
-second_div_element.style.width = "300px";
-second_div_element.style.border = "2px solid green";
-second_div_element.style.backgroundColor = "#87365e";
+  menuItemliElement.appendChild(menuItemNamePElement);
+  menuItemliElement.appendChild(menuItemPricePElement);
+  menuItemliElement.appendChild(menuItemCategoryPElement);
+  menuItemliElement.appendChild(menuItemImageElement);
 
-third_div_element.style.height = "100px";
-third_div_element.style.width = "300px";
-third_div_element.style.border = "2px solid blue";
-third_div_element.style.backgroundColor = "#00ff95";
+  // g. Attach the <li> to the <ul> element
 
-const createDivElement = document.createElement("div");
-const node = document.createTextNode("This is new.");
-const createPElement = document.createElement("p");
-// document.appendChild(createDivElement);
-first_div_element.appendChild(createPElement);
-createPElement.textContent = "New Element";
+  displayMenuItemsUlElement.appendChild(menuItemliElement);
+
+
+  console.log(`menuItemName: ${menuItemName} - menuItemPrice: ${menuItemPrice} - menuItemCategory: ${menuItemCategory} - menuItemImage: ${menuItemImage}`);
+
+  menuItemNamePElement.textContent = menuItemName;
+  menuItemPricePElement.textContent = menuItemPrice;
+  menuItemCategoryPElement.textContent = menuItemCategory;
+
+  menuItemImageElement.src = menuItemImage;
+}
+
+// TODO
+// h. Create a ‘vegetarian’ and ‘meat’ button that filters the products on the page.
