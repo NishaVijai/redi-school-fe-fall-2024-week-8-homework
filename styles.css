@@ -2,24 +2,28 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: all 0.5s ease-in-out;
 }
 
 body {
-   background-color: #fcebeb;
+   background-color: #b6b5b5;
    display: grid;
    grid-template-columns: 1fr;
    grid-template-rows: 300px auto 300px;
-   grid-template-areas: 
+   grid-template-areas:
     "header"
     "main"
     "footer";
   place-items: center;
   font-size: 16px;
   padding: 1rem;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 header {
   grid-area: header;
+  word-break: break-all;
 }
 
 main {
@@ -27,29 +31,102 @@ main {
   display: grid;
   gap: 1rem;
   margin: 0 auto;
-  word-break: break-all;
 }
 
 footer {
   grid-area: footer;
 }
 
-#display_menu_items{
+ul > li {
+  list-style: none;
+}
+
+#display_menu {
   color: #13575a;
   font-size: 1.2rem;
+  position: relative;
+  margin-top: 2rem;
 }
 
-#display_menu_items li {
-  padding-bottom: 1rem;
+.menu_item_list {
+  background-color: #fcf5f5;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  max-width: 500px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-in-out;
 }
 
-#display_menu_items p {
-  padding-bottom: 1rem;
+#display_menu.fade-out * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+#display_menu.fade-in * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu_item_list img {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+}
+
+.menu_item_list p {
+  padding: 0.5rem 0 0.5rem 1rem;
+}
+
+.filter_dish_category_section {
+  display: inline-flex;
+  gap: 0.5rem;
+  justify-content: center;
+  position: absolute;
+  top: 15rem;
+  left: auto;
+}
+
+.filter_dish_category_section button {
+  background-color: #631d46;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  height: 3rem;
+  width: 6rem;
+  outline: none;
+}
+
+.filter_dish_category_section button:focus,
+.filter_dish_category_section button:hover {
+  border: 2px solid #fff;
+  background-color: #a52d71;
 }
 
 /* Media query for desktop */
 @media only screen and (min-width: 768px) {
   body {
     height: 100vh;
+  }
+
+  .filter_dish_category_section {
+    left: 32%;
+    gap: 1rem;
+  }
+}
+
+@media only screen and (min-width: 1080px) {
+  .filter_dish_category_section {
+    left: 38%;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .filter_dish_category_section {
+    left: 42%;
   }
 }

@@ -54,50 +54,100 @@ const menuDatabase = [
   ]
 ];
 
+const convertFirstLetterOfStringValueToUpperCase = (string) => {
+  let [firstLetter, ...rest] = string;
+  let capitalizeFirstLetter = firstLetter.toUpperCase();
+  let result = [capitalizeFirstLetter, ...rest].join("");
+
+  return result;
+};
+
 // a. Only write a <ul> element in your HTML document with an id
 // b. Get the <ul> element using getElementById
-const displayMenuItemsUlElement = document.getElementById('display_menu_items');
+const displayMenuItemsUlElement = document.getElementById('display_menu');
 
-// c. Use any type of the for loops you think might work to loop through the database (attached in next slide).
+const all = 'All Dishes';
+const vegetarian = 'vegetarian';
+const meat = 'meat';
 
-for (const menuItem of menuDatabase) {
-  const [menuItemName, menuItemPrice, menuItemCategory, menuItemImage] = menuItem;
+const allDishes = menuDatabase.map(dish => dish);
 
+const vegetarianDishes = menuDatabase
+  .filter(dish => dish[2] === vegetarian)
+  .map(dish => dish);
+
+const meatDishes = menuDatabase
+  .filter(dish => dish[2] === meat)
+  .map(dish => dish);
+
+const createMenuCard = (dish) => {
   // d. In each iteration create a <li> element
-
-  const menuItemliElement = document.createElement('li');
+  const menuItemList = document.createElement("li");
+  menuItemList.classList.add("menu_item_list");
 
   // e. Create an <img> element for the product image, and 3 <p> elements for product name, price and category (using createElement).
-
-  const menuItemImageElement = document.createElement('img');
-  menuItemImageElement.setAttribute('height', '200px');
-  menuItemImageElement.setAttribute('width', '300px');
-  menuItemImageElement.setAttribute('alt', 'Dish image');
-
-  const menuItemNamePElement = document.createElement('p');
-  const menuItemPricePElement = document.createElement('p');
-  const menuItemCategoryPElement = document.createElement('p');
-
   // f. Attach these 4 elements to the <li> created before
+  menuItemList.innerHTML += `
+        <img src="${dish[3]}" height="200px" width="300px" alt="${dish[0]} loading="lazy"">
+        <p>${dish[0]}</p>
+        <p>${dish[1]}</p>
+        <p>${dish[2]}</p>
+    `;
 
-  menuItemliElement.appendChild(menuItemNamePElement);
-  menuItemliElement.appendChild(menuItemPricePElement);
-  menuItemliElement.appendChild(menuItemCategoryPElement);
-  menuItemliElement.appendChild(menuItemImageElement);
+  return menuItemList;
+};
 
-  // g. Attach the <li> to the <ul> element
+const displayAllDishes = (menu) => {
+  displayMenuItemsUlElement.classList.add("fade-out");
 
-  displayMenuItemsUlElement.appendChild(menuItemliElement);
+  setTimeout(() => {
+    displayMenuItemsUlElement.innerHTML = "";
 
+    // c. Use any type of the for loops you think might work to loop through the database (attached in next slide).
+    for (const dish of menu) {
+      // g. Attach the <li> to the <ul> element
+      displayMenuItemsUlElement.appendChild(createMenuCard(dish));
+    }
 
-  console.log(`menuItemName: ${menuItemName} - menuItemPrice: ${menuItemPrice} - menuItemCategory: ${menuItemCategory} - menuItemImage: ${menuItemImage}`);
+    displayMenuItemsUlElement.offsetHeight;
+    displayMenuItemsUlElement.classList.remove("fade-out");
+    displayMenuItemsUlElement.classList.add("fade-in");
+  }, 500);
+};
 
-  menuItemNamePElement.textContent = menuItemName;
-  menuItemPricePElement.textContent = menuItemPrice;
-  menuItemCategoryPElement.textContent = menuItemCategory;
+displayAllDishes(allDishes);
 
-  menuItemImageElement.src = menuItemImage;
-}
-
-// TODO
 // h. Create a ‘vegetarian’ and ‘meat’ button that filters the products on the page.
+const mainElement = document.querySelector('main');
+
+const filterDishCategorySection = document.createElement('section');
+filterDishCategorySection.classList.add('filter_dish_category_section');
+mainElement.appendChild(filterDishCategorySection);
+
+const allDishesButton = document.createElement('button');
+const vegetarianButton = document.createElement('button');
+const meatButton = document.createElement('button');
+
+filterDishCategorySection.appendChild(allDishesButton);
+filterDishCategorySection.appendChild(vegetarianButton);
+filterDishCategorySection.appendChild(meatButton);
+
+allDishesButton.textContent = all;
+vegetarianButton.textContent = convertFirstLetterOfStringValueToUpperCase(vegetarian);
+meatButton.textContent = convertFirstLetterOfStringValueToUpperCase(meat);
+
+const onClickDisplayAllDishes = () => {
+  displayAllDishes(allDishes);
+};
+
+const onClickHandlerDisplayVegetarianDishes = () => {
+  displayAllDishes(vegetarianDishes);
+};
+
+const onClickHandlerDisplayMeatDishes = () => {
+  displayAllDishes(meatDishes);
+};
+
+allDishesButton.addEventListener("click", () => { onClickDisplayAllDishes(); });
+vegetarianButton.addEventListener("click", () => { onClickHandlerDisplayVegetarianDishes(); });
+meatButton.addEventListener("click", () => { onClickHandlerDisplayMeatDishes(); });
