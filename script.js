@@ -88,7 +88,7 @@ const createMenuCard = (dish) => {
   // e. Create an <img> element for the product image, and 3 <p> elements for product name, price and category (using createElement).
   // f. Attach these 4 elements to the <li> created before
   menuItemList.innerHTML += `
-        <img src="${dish[3]}" height="200px" width="300px" alt="${dish[0]} loading="lazy"">
+        <img src="${dish[3]}" height="200px" width="300px" alt="${dish[0]}" loading="lazy">
         <p>${dish[0]}</p>
         <p>${dish[1]}</p>
         <p>${dish[2]}</p>
